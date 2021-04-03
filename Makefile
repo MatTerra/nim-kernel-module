@@ -13,7 +13,7 @@ hello-objs += nimcache/stdlib_strutils.nim.o
 hello-objs += nimcache/stdlib_parseutils.nim.o
 hello-objs += nimcache/stdlib_dollars.nim.o
 hello-objs += stubs/stubs.o
-hello-objs += ../../../../../../opt/toolchains/i686-buildroot-linux-uclibc-gcc/usr/lib/gcc/i686-buildroot-linux-uclibc/4.6.4/libgcc.a
+#hello-objs += ../../../../../../opt/toolchains/i686-buildroot-linux-uclibc-gcc/usr/lib/gcc/i686-buildroot-linux-uclibc/4.6.4/libgcc.a
 
 hello-lobs := lgcc
 
@@ -23,16 +23,18 @@ ccflags-y := -I$(src) -I$(src)/stubs
 all: info nimcache/nimhello.nim.c modules
 
 info:
-	echo $(PWD)
+	echo $(pwd)
 	echo $(hello-src)
 	echo $(hello-objs)
 
 nimcache/nimhello.nim.c: nimhello.nim
 	nim c -c \
 		--nimcache:./nimcache \
-		--os:kernel \
+		--os:any \
 		--newruntime \
 		--noMain:on \
+    -d:useMalloc \
+    --gc:arc \
 		-d:noSignalHandler \
 		-d:release \
 		-d:nimquirky \
