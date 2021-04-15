@@ -38,6 +38,8 @@ nimcache/nimhello.nim.c: nimhello.nim
 		-d:noSignalHandler \
 		-d:release \
 		-d:nimquirky \
+    -d:kernel
+    --import:./memory
 		nimhello.nim
 
 
